@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils  import secure_filename
 import sqlite3, os
 
-app = FLASK(__name__)
+app = Flask(__name__)
 app.secret_key = "secret"
 DB =  "journal.db"
 
