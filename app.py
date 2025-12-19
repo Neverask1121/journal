@@ -60,9 +60,9 @@ def save():
 
     for img in request.files.getlist("image"):
         if img.filename:
-        name = secure_filename(img.filename)
-        img.save(os.path.join("uploads", name))
-        query("INSERT INTO images (entry_id, filename) VALUES (?, ?)", (entry["id"], name))
+            name = secure_filename(img.filename)
+            img.save(os.path.join("uploads", name))
+            query("INSERT INTO images (entry_id, filename) VALUES (?, ?)", (entry["id"], name))
 
     return redirect("/")
 
