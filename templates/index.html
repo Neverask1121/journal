@@ -1,0 +1,15 @@
+{% for e in entries %}
+<h3>{{ e.date }}</h3>
+<p>{{ e.content }}</p>
+
+{% for img in query("SELECT * FROM images WHERE entry_id=?", (e.id)) %}
+<img src="/uploads/{{ img.filename }}" width="200">
+{% endfor %}
+
+<form method="post" action="/comment/{{ e.id }}">
+    <input name="name" placeholder="name">
+    <input name="comment" placeholder="comment">
+    <button>Send</button>
+</form>
+<hr>
+{% endfor %}
