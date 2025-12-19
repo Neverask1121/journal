@@ -1,3 +1,4 @@
+from flask import send_from_directory
 from flask import Flask, render_template, request, redirect, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils  import secure_filename
@@ -19,7 +20,17 @@ def query(sql, args=(), one=False):
 @app.route("/")
 def index():
     entries = query("SELECT * FROM entries ORDER BY date DESC")
-    return render_template("index.html", entries=entries)
+
+    data = []
+    for e in entries:
+        images = query("SELECT * FROM images WHERE entry_id=?", (e["id"],))
+        data.append({
+            "entry": e,
+            "images": images
+        })
+
+    return render_template("index.html", data=data)
+
 
 @app.route("/comment/<int:id>", methods=["POST"])
 def comment(id):
@@ -69,4 +80,6 @@ def save():
 if __name__ == "__main__":
     app.run()
 
-
+@app.route("/uploads/<filename>")
+def uploads(filename):
+    return send_from_directory("uploads", filename)

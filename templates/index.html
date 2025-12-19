@@ -1,15 +1,16 @@
-{% for e in entries %}
-<h3>{{ e.date }}</h3>
-<p>{{ e.content }}</p>
+{% for item in data %}
+  <h3>{{ item.entry.date }}</h3>
+  <p>{{ item.entry.content }}</p>
 
-{% for img in query("SELECT * FROM images WHERE entry_id=?", (e.id)) %}
-<img src="/uploads/{{ img.filename }}" width="200">
-{% endfor %}
+  {% for img in item.images %}
+    <img src="/uploads/{{ img.filename }}" width="200">
+  {% endfor %}
 
-<form method="post" action="/comment/{{ e.id }}">
+  <form method="post" action="/comment/{{ item.entry.id }}">
     <input name="name" placeholder="name">
     <input name="comment" placeholder="comment">
     <button>Send</button>
-</form>
-<hr>
+  </form>
+
+  <hr>
 {% endfor %}
