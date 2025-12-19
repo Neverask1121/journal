@@ -17,7 +17,7 @@ def query(sql, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 @app.route("/")
-def index:
+def index():
     entries = query("SELECT * FROM entries ORDER BY date DESC")
     return render_template("index.html", entries=entries)
 
