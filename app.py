@@ -26,7 +26,7 @@ def comment(id):
     name = request.form["name"]
     comment = request.form["comment"]
     query("INSERT INTO comments (entry_id, name, caomment) VALUES (?, ?, ?)",
-    (id name, name, comment))
+    (id, name, comment))
     return redirect("/")
 
 @app.route("/login", methods=["GET", "POST"])
